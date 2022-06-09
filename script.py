@@ -1,24 +1,20 @@
 import http.client
-import pprint 
 import json
 import pandas as pd
-import sys
-import os
-import glob
 import numpy as np
+import sys
 
-data = pd.read_csv("quotes (2).csv")
-symbols = list(data['Symbol'])
-
-##fix dataframe reading
 #deal with errors
-#api key 
-def get_summ(tickers):
+
+def get_summ(path, api_key):
+    data = pd.read_csv(path)
+    tickers = [i for i in list(data['Symbol'])]
     conn = http.client.HTTPSConnection("yh-finance.p.rapidapi.com")
     headers = {
-         'X-RapidAPI-Host': "yh-finance.p.rapidapi.com",
-        'X-RapidAPI-Key': "873bfa8fe6mshf78eca5dfb72fe2p16e11fjsnf3c21ea59a6e"
-        }
+        'X-RapidAPI-Host': "yh-finance.p.rapidapi.com",
+        'X-RapidAPI-Key': api_key
+    }
+
     desc = []
     
     for i in tickers:
