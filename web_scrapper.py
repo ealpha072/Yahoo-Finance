@@ -33,6 +33,7 @@ desc = results[0].text
 tick = stock_info[0].text
 tick = tick.split('\n')
 company_name = tick[1]
+
 stock_symbol = tick[0]
 
 data = pd.DataFrame([[company_name, stock_symbol, desc]], columns=['Company Name', 'Stock Symbol', 'Description'])
@@ -58,3 +59,13 @@ name = split_ticker[:-1]
 name = ' '.join(name)
 df = pd.DataFrame([[name, symbol, description.text]], columns= ['Stock name','Stock symbol', 'Description'])
 
+#google travel web scrapper
+#first import selenium and all its components
+#this returns names of hotels
+def getHotels (town):
+    driver.get("https://www.google.com/travel/hotels/Lamu?")
+    headers = driver.find_elements(By.TAG_NAME, 'h2')
+    hotel_names = []
+    for i in headers:
+        hotel_names.append(i.text)
+    return hotel_names
