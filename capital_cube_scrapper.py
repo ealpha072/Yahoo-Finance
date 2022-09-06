@@ -1,6 +1,9 @@
 import selenium
 import time
 import sys
+import os
+import glob
+import pandas as pd
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -8,10 +11,18 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://www.capitalcube.com/")
 
-def get_values(tickers):
+#Sign in 
+form = driver.find_element(By.XPATH, "//button[@type='submit']")
+username = driver.find_element(By.CSS_SELECTOR, "input#loginEmail")
+password = driver.find_element(By.CSS_SELECTOR, "input#loginPassword")
+username.send_keys(' hebotot356@tsclip.com')
+password.send_keys('12345678')
+form.click()
+
+def get_values(path_to_file):
+    data = pd.read(path_to_file)
+    tickers = list(data['Symbols'])
     comps = []
-    no_suggestions = []
-    no_btns = []
     search = driver.find_element(By.XPATH, '/html/body/cc-root/div[2]/cc-header/header/div/div/div/div[4]/form/div/input')
     for i in tickers:
         try:
@@ -33,18 +44,15 @@ def get_values(tickers):
                     time.sleep(2)
                 else:
                     print(tickers.index(i),'Ticker: {} has no correct suggestion'.format(i))
-                    no_suggestions.append(i)
                     comps.append({'Symbol':i, 'Description':'NA', 'Sect':'NA', 'Industry':'NA'})
                     continue
             else:
                 print(tickers.index(i), 'Ticker: {} not found'.format(i))
-                no_buttons.append(i)
                 comps.append({'Symbol':i, 'Description':'NA', 'Sect':'NA', 'Industry':'NA'})
                 continue
         except:
             print(tickers.index(i),'Error', sys.exc_info()[0], 'occured')
             print(comps)
-            no_buttons.append(i)
             comps.append({'Symbol':i, 'Description':'NA', 'Sect':'NA', 'Industry':'NA'})
             continue
     return comps
