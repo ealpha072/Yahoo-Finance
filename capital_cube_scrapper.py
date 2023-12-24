@@ -58,11 +58,9 @@ def get_values(path_to_file):
     return comps
 
 def combine_datasets(path):
-    files = os.path.join("my_data", "*.csv")
-    files = glob.glob(files)
+    files = glob.glob(os.path.join("my_data", "*.csv"))
     df = pd.concat(map(pd.read_csv, files), ignore_index=True)
-    data = pd.DataFrame(df)
-    final_file = data.to_csv('cleaned_data.csv')
-    return final_file
-    
+    df.to_csv('cleaned_data.csv', index=False)
+    return 'cleaned_data.csv'
+
 descs = get_values(symbols)
