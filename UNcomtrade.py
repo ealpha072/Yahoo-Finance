@@ -14,8 +14,7 @@ def createData(codes):
     empty_hs_codes = []
     for i in codes:
         url = 'https://comtrade.un.org/api/get?max=502&type=C&freq=A&px=HS&ps=2016%2C2017%2C2018&r=all&p=0&rg=1&cc={}'.format(i)
-        #/api/get?max=502&type=C&freq=A&px=HS&ps=2016%2C2017%2C2018&r=all&p=0&rg=1&cc=130231
-        #url = 'https://comtrade.un.org/api/get?max=500&type=C&freq=A&px=HS&ps=2021&r=404&p=all&rg=all&cc={}'.format(i)
+        
         response = requests.get(url)
         if response.ok:
             code_data_contents = response.content

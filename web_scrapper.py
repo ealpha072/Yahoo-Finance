@@ -10,9 +10,6 @@ from selenium.webdriver.common.keys import Keys
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://www.google.com/travel/hotels/Lamu?")
 
-#google travel web scrapper
-#first import selenium and all its components
-#this returns names of hotels
 def getHotels (town):
     driver.get("https://www.google.com/travel/hotels/{}?").format(town)
     headers = driver.find_elements(By.TAG_NAME, 'h2')

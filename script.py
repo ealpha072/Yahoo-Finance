@@ -4,8 +4,6 @@ import pandas as pd
 import numpy as np
 import sys
 
-#deal with errors
-
 def get_summ(path, api_key):
     data = pd.read_csv(path)
     tickers = [i for i in list(data['Symbol'])]
