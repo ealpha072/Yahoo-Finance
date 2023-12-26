@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#stage all changes
+
+git add .
+
+#prompt user for a comit message
+
+echo -n "Enter a commit message: "
+read commit_message
+
+#commit changes
+git commit -m "$commit_message"
+
+#push changes
+git push --verbose
