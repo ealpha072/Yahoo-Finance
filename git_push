@@ -2,15 +2,22 @@
 
 #stage all changes
 
-git add .
-
 #prompt user for a comit message
 
-echo -n "Enter a commit message: "
-read commit_message
+if [[ -n $(git status -s) ]]; then
+	echo "Uncommited changes"
+	git status
 
-#commit changes
-git commit -m "$commit_message"
+	echo -n "Enter a commit message: "
+	read commit_message
 
-#push changes
-git push --verbose
+	git add .
+
+	#commit changes
+	git commit -m "$commit_message"
+
+	#push changes
+	git push --verbose
+else
+	echo "No changes to commit"
+fi
