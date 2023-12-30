@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://www.capitalcube.com/")
 
-#Sign in 
+#Sign in, by sending keys
 form = driver.find_element(By.XPATH, "//button[@type='submit']")
 username = driver.find_element(By.CSS_SELECTOR, "input#loginEmail")
 password = driver.find_element(By.CSS_SELECTOR, "input#loginPassword")
@@ -19,6 +19,7 @@ username.send_keys(' hebotot356@tsclip.com')
 password.send_keys('12345678')
 form.click()
 
+#get ticker summary for each ticker
 def get_values(path_to_file):
     data = pd.read(path_to_file)
     tickers = list(data['Symbols'])
@@ -57,10 +58,9 @@ def get_values(path_to_file):
             continue
     return comps
 
+#combine generated datasets in folder
 def combine_datasets(path):
     files = glob.glob(os.path.join("my_data", "*.csv"))
     df = pd.concat(map(pd.read_csv, files), ignore_index=True)
     df.to_csv('cleaned_data.csv', index=False)
     return 'cleaned_data.csv'
-
-descs = get_values(symbols)

@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
+
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://www.google.com/travel/hotels/Lamu?")
 
